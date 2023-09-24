@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="demo"></div>
+    <script type="text/babel">
+        const VDOM = (
+            <h1 id="root">
+                <span>react</span>
+            </h1>)
+        
+        ReactDOM.render(VDOM, document.getElementById('root'));
+        
+        const TDOM = document.getElementById('demo')
+        console.log('虚拟DOM', VDOM);
+        console.log('真实DOM', TDOM);
+        debugger;
+
+        // 虚拟DOM
+        // 1、本质是Object类型对象
+        // 2、虚拟DOM比较轻 因为只在react内部使用
+        // 3、虚拟DOM最终会转化为真实DOM
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        class Demo extends React.Component {
+            render() {
+                return (
+                    // ref回调形式: 拿到ref的节点react自动调用回调函数  回调的形参默认给当前的节点信息 
+                    <div>
+                        <input type="text" ref={currentNode => this.input1 = currentNode} placeholder="点击按钮提示" /> 
+                        <button onClick={this.showData}>点我提示数据</button>
+                    </div>
+                )
+            }
+
+            showData = () => {
+                const {input1} = this;
+                console.log(input1.placeholder);
+            }
+        }
+
+        ReactDOM.render(<Demo></Demo>, document.getElementById('root'))
+    </script>
+</body>
+</html>

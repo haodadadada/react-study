@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class MyComponent extends React.Component {
+
+            constructor(props) {
+                super(props);
+                // this.state = {
+                //     isHot: true
+                // }
+                // this.changeWeater = this.changeWeater.bind(this);
+            }
+
+            // 只要实例化不传入值可以直接这样写
+            state = {
+                isHot: true
+            }
+
+            // 等于号赋值就直接放在实例上而不是原型上了
+            changeWeater = () => {
+                const isHot = this.isHot;
+                this.setState({
+                    isHot: !isHot
+                });
+            }
+            // 这种方法需要用 bind 转换 this 指向
+            // changeWeater ()  {
+            //     const isHot = this.isHot;
+            //     this.setState({
+            //         isHot: !isHot
+            //     });
+            // }
+
+            render() {
+                console.log(this)
+                const {isHot} = this.state;
+                return <h2 onClick={this.changeWeater}>今天很{isHot? '热' : '冷'}</h2> //react重新封装的事件 要大写    是供实例调用所以调用的时候要加this
+            }
+
+            changeWeater() {
+                const isHot = this.state.isHot;
+
+                this.setState({
+                    isHot: !isHot
+                })
+            }
+        }
+
+        ReactDOM.render(<MyComponent/>, document.getElementById('root'));
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Demo extends React.Component {
+
+            state = {
+                isHot: true
+            }
+
+            showInfo = () => {
+                const {input1} = this;
+                console.log(input1.value);
+            }
+
+            changeWeather = () => {
+                const {isHot} = this.state;
+                this.setState({
+                    isHot: !isHot
+                })
+            }
+
+            saveInput = (c) => {
+                this.input1 = c;
+                console.log('@', c);
+            }
+
+            render() {
+                // ref使用内联形式的回调函数在更新时会调用两次第一次为 null 第二次为传入的值
+                const {isHot} = this.state
+                return (
+                    <div>
+                        <h2>今天很{isHot? '热' : '冷'}</h2>
+                        { /*<input type="text" ref={currentNode => {this.input1 = currentNode; console.log('@', currentNode)}} ></input> */}
+                        <input type="text" ref={this.saveInput}></input>
+                        <button onClick={this.showInfo}>点我提示数据</button>
+                        <button onClick={this.changeWeather}>点我更改天气</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Demo></Demo>, document.getElementById('root'));
+    </script>
+</body>
+</html>

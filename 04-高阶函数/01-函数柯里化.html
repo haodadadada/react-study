@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        // 高阶函数： 如果一个函数符合下面两个规范的任何一个 该函数就是高阶函数
+        //      1、若A函数 接收的参数是一个函数 那么A函数可以称为高阶函数
+        //      2、若A函数调用的返回值依然是一个函数 那么A函数可以称为高阶函数
+        //      常见的高阶函数： Promise、setTimeout、数组的一些方法等
+
+        // 函数的柯里化 通过函数调用继续返回函数的方式 实现多次接收参数最后统一处理的函数编码形式
+
+        class Login extends React.Component {
+
+            state = {
+                username: '',
+                password: ''
+            }
+
+            handleSubmit = (event) => {
+                event.preventDefault(); //阻止表单提交
+                const {username, password} = this.state;
+                console.log(`你的用户名是${username}, 你的密码是${password}`);
+            }
+
+            // 保存表单数据到状态
+            saveFormData = (dataType) => {
+                return (event) => {
+                    this.setState({
+                        [dataType]: event.target.value
+                    })
+                }
+            }
+
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        {/* 在事件回调中的函数加入 () 会当做把函数的返回值作为回调 */}
+                        用户名： <input type="text" onChange={this.saveFormData('username')}  name="username"></input>
+                        密码：<input type="password"  onChange={this.saveFormData('password')} name="password"></input>
+                        <button type="submit">登录 </button>
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(<Login></Login>, document.getElementById('root'));
+    </script>
+</body>
+</html>

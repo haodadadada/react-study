@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+
+        class Life extends React.Component {
+
+            state = {
+                count : 1
+            }
+
+            add = () => {
+                let {count} = this.state;
+                this.setState({
+                    count: count + 1
+                })
+            }
+
+            force = () => {
+                this.forceUpdate();
+            }
+
+            constructor(prop) {
+                super(prop)
+                console.log('constructor');
+            }
+
+            // 组件将要挂载调用
+            componentWillMount() {
+                console.log('将要挂载');
+            }
+
+            // 组件挂载完毕调用
+            componentDidMount() {
+                console.log('挂载');
+            }
+
+            // 组件将要卸载
+            componentWillUnmount() {
+                console.log('卸载');
+            }
+
+            // setState后是否重新调用render 如果不写则底层默认调用返回值为真
+            shouldComponentUpdate() {
+                console.log('shouldComponentUpdate');
+                return true;
+            }
+
+            // 组件将要更新的钩子
+            componentWillUpdate() {
+                console.log('componentWillUpdate');
+            }
+
+            // 组件更新完毕的钩子
+            componentDidUpdate() {
+                console.log('componentDidUpdate');
+            }
+
+            // 初始化渲染、状态更新之后
+            render() {
+                console.log('render');
+                return (
+                    <div>
+                        <h2>当前求和为: {this.state.count}</h2>
+                        <button onClick={this.add}>点我+1</button>
+                        <button onClick={this.force}>强制更新状态</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Life></Life>, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        class Demo extends React.Component {
+
+            // (1) 通过 onXxx属性指定事件处理函数(注意大小写)
+                // a.  React使用的是自定义事件而不是原生的DOM事件
+                // b.  React中的事件是通过事件委托方式处理的(委托给组件最外层的元素)
+            // (2) 通过 event.target得到发送事件的DOM元素对象
+
+            myRef1 = React.createRef();
+            render() {
+                return (
+                    // ref回调形式: 拿到ref的节点react自动调用回调函数  回调的形参默认给当前的节点信息 
+                    <div>
+                        <input type="text" ref={this.myRef1} placeholder="点击按钮提示" /> 
+                        <button onClick={this.showData}>点我提示数据</button>
+                        <input type="text" onBlur={this.showData2} placeholder="失去焦点提示数据"/>
+                    </div>
+                )
+            }
+
+            showData = () => {
+                console.log(this.myRef1.current.value);
+            }
+
+            showData2 = (event) => {
+                console.log(event.target.value);
+            }
+        }
+
+        ReactDOM.render(<Demo></Demo>, document.getElementById('root'))
+    </script>
+</body>
+</html>

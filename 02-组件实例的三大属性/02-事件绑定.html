@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class MyComponent extends React.Component {
+
+            // 构造器调用几次？   一次
+            constructor(props) {
+                // 用来初始化状态
+                super(props);
+                this.state = {
+                    isHot: true
+                }
+                // 解决changeWeather中this指向问题
+                this.changeWeater = this.changeWeater.bind(this);
+                console.log(this);
+            }
+
+            // render方法在react原型上
+            // render调用几次？ 1+状态(state)更新 次
+            render() {
+                // 主要用来读取状态并展示
+                const {isHot} = this.state;
+                return <h2 onClick={this.changeWeater}>今天很{isHot? '热' : '冷'}</h2> //react重新封装的事件 要大写    是供实例调用所以调用的时候要加this
+            }
+
+            changeWeater() {
+                // changeWeather放在哪里?  --- MyComponent的原型对象上 供实例使用
+                // 通过MyComponent调用changeWeather时 changeWeather中的this就是 MyComponent 实例
+                // 由于changeWeather是作为onClick的回调并且类中的方法默认开启了 严格模式 所以changeWeather中的this为 undefined
+                const isHot = this.state.isHot;
+
+                // 注意 状态必须通过setState进行更新 且更新是一种合并 不是 替换
+                this.setState({
+                    isHot: !isHot
+                })
+
+                // 注意 状态 state不可直接更改 要借助一个内置API更改
+                // *** this.state.isHot = !isHot;
+
+
+            }
+        }
+
+        ReactDOM.render(<MyComponent/>, document.getElementById('root'));
+
+    </script>
+</body>
+</html>

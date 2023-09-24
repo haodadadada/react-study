@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        function Person(prop) {
+            const {name, age} = prop
+            return (
+                <ul>
+                    <li>姓名: {name}</li>
+                    <li>年龄: {age}</li>
+                </ul>
+            )
+        }
+        ReactDOM.render(<Person name='zx' age={19}></Person>, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        class Login extends React.Component {
+
+            handleSubmit = (event) => {
+                event.preventDefault(); //阻止表单提交
+                const {username, password} = this;
+                console.log(username, password);
+                console.log(`你的用户名是${username.value}, 你的密码时${password.value}`);
+            }
+
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        用户名： <input type="text" ref={c => this.username = c}  name="username"></input>
+                        密码：<input type="password" ref={c => this.password = c} name="password"></input>
+                        <button type="submit">登录 </button>
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(<Login></Login>, document.getElementById('root'));
+    </script>
+</body>
+</html>

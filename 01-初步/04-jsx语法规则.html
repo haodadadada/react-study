@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <!-- 将jsx转换为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .bgc {
+            background-color: pink;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- type一定要babel， 为  jsx 语法 -->
+    <script type="text/babel">
+    //创建虚拟DOM
+        const  myId = 'atguigu';
+        const myData = 'react';
+        const VDOM = (
+            <div>
+                <h2 className="bgc" id={myId}>
+                <span style={{color: '#34cd99'}}>{myData}</span>
+                </h2>
+                <h2 className="bgc" id={myId}>
+                <span style={{color: '#34cd99'}}>{myData}</span>
+                </h2>
+                <input type="text" />
+            </div>
+        )
+    //渲染虚拟DOM到页面
+        ReactDOM.render(VDOM, document.getElementById('root'));
+
+        // jsx语法规则
+        /* 
+            1、定义虚拟DOM时 不要写引号
+            2、标签中混入js 表达式 (不是js语句)时要用 {}
+            3、样式的类名指定不要用class 要用className
+            4、内联样式要用style={{key: value}}的形式去写
+            5、虚拟DOM必须只有一个根标签
+            6、标签必须闭合
+        */
+    </script>
+  </body>
+</html>
